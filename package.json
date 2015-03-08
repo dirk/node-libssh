@@ -14,15 +14,15 @@
   "version": "1.7.3",
   "main": "index.js",
   "dependencies": {
-    "bindings": "*",
-    "nan": "^1.7.0"
+    "bindings": "~1.2.1",
+    "nan":      "~1.7.0"
   },
   "devDependencies": {
-    "tap": "*",
-    "ssh2": "*",
-    "bl": "*",
+    "tap":      "~0.7.1",
+    "ssh2":     "~0.4.4",
+    "bl":       "~0.9.4",
     "node-gyp": "~1.0.1",
-    "pty.js" :"git://github.com/chjj/pty.js.git"
+    "pty.js":   "~0.2.6"
   },
   "repository": {
     "type": "git",

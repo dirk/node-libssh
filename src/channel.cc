@@ -225,7 +225,9 @@ void Channel::OnSftpMessage (v8::Handle<v8::Object> mess) {
   if (callback->IsFunction()) {
     v8::TryCatch try_catch;
     v8::Handle<v8::Value> argv[] = { mess };
-    callback.As<v8::Function>()->Call(NanObjectWrapHandle(this), 1, argv);
+    
+    v8::Local<v8::Function> callbackFunction = callback.As<v8::Function>();
+    NanMakeCallback(NanObjectWrapHandle(this), callbackFunction, 1, argv);
 
     if (try_catch.HasCaught())
       node::FatalException(try_catch);
@@ -244,7 +246,8 @@ void Channel::OnData (const char *data, int length) {
       NanNewBufferHandle((char *)data, length)
     };
 
-    callback.As<v8::Function>()->Call(NanObjectWrapHandle(this), 1, argv);
+    v8::Local<v8::Function> callbackFunction = callback.As<v8::Function>();
+    NanMakeCallback(NanObjectWrapHandle(this), callbackFunction, 1, argv);
 
     if (try_catch.HasCaught())
       node::FatalException(try_catch);
@@ -259,7 +262,9 @@ void Channel::OnClose () {
 
   if (callback->IsFunction()) {
     v8::TryCatch try_catch;
-    callback.As<v8::Function>()->Call(NanObjectWrapHandle(this), 0, NULL);
+    v8::Local<v8::Function> callbackFunction = callback.As<v8::Function>();
+    NanMakeCallback(NanObjectWrapHandle(this), callbackFunction, 0, NULL);
+
     if (try_catch.HasCaught())
       node::FatalException(try_catch);
   }

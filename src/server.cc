@@ -151,7 +151,10 @@ void Server::OnConnection (v8::Handle<v8::Object> session) {
   if (callback->IsFunction()) {
     v8::TryCatch try_catch;
     v8::Handle<v8::Value> argv[] = { session };
-    callback.As<v8::Function>()->Call(NanObjectWrapHandle(this), 1, argv);
+
+    v8::Local<v8::Function> callbackFunction = callback.As<v8::Function>();
+    NanMakeCallback(NanObjectWrapHandle(this), callbackFunction, 1, argv);
+
     if (try_catch.HasCaught())
       node::FatalException(try_catch);
   }

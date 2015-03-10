@@ -57,7 +57,7 @@
              , 'GCC_ENABLE_CPP_EXCEPTIONS': 'YES'
              , 'MACOSX_DEPLOYMENT_TARGET': '10.8'
            }
-         , 'defines': ['HAVE_NTOHLL', 'HAVE_HTONLL']
+         , 'defines': ['HAVE_NTOHLL', 'HAVE_HTONLL', 'HAVE_SYS_TIME_H']
        }]
      , ['OS == "win"', {
            'include_dirs': [
@@ -75,7 +75,10 @@
            'defines': [
               'SOURCEDIR=<!(pwd)/libssh-<(libsshversion)/'
           ]
-       }]      
+       }]
+     , ['OS == "linux"', {
+           'defines': ['HAVE_SYS_TIME_H']
+       }]
      , ['OS != "win" and OS != "mac"', {
            'include_dirs': [
                'include/'
